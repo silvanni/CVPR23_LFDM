@@ -13,6 +13,7 @@ from LFAE.modules.region_predictor import RegionPredictor
 from DM.modules.video_flow_diffusion import Unet3D, GaussianDiffusion
 import yaml
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class FlowDiffusion(nn.Module):
     def __init__(self, img_size=32, num_frames=40, sampling_timesteps=250,
@@ -31,7 +32,7 @@ class FlowDiffusion(nn.Module):
         self.only_use_flow = only_use_flow
 
         if pretrained_pth != "":
-            checkpoint = torch.load(pretrained_pth)
+            checkpoint = torch.load(pretrained_pth, map_location = device)
         with open(config_pth) as f:
             config = yaml.safe_load(f)
 

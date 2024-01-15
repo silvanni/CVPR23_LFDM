@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/workspace/code/CVPR23_LFDM")  # change this to your code directory
+sys.path.append("/content/CVPR23_LFDM")  # change this to your code directory
 
 import argparse
 import imageio
@@ -17,7 +17,8 @@ import cv2
 import matplotlib.pyplot as plt
 
 start = timeit.default_timer()
-root_dir = '/data/hfn5052/text2motion/cvpr23/demo_mhad'
+# меняем на ссылку на папку, куда сохраняем результат
+root_dir = '/content/results'
 GPU = "1"
 postfix = "-j-sl-random-of-tr-rmm"
 INPUT_SIZE = 128
@@ -26,11 +27,11 @@ RANDOM_SEED = 2222
 MEAN = (0.0, 0.0, 0.0)
 cond_scale = 1.
 # downloaded the pretrained DM model and put its path here
-RESTORE_FROM = "/data/hfn5052/text2motion/videoflowdiff/snapshots-joint-steplr-random-onlyflow-train-regionmm/" \
-               "flowdiff_0006_S086400.pth"
+RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_MHAD.pth"
 # downloaded the pretrained LFAE model and put its path here
-AE_RESTORE_FROM = "/data/hfn5052/text2motion/RegionMM/log/mhad128/snapshots/RegionMM_0100_S043100.pth"
-config_pth = "/workspace/code/CVPR23_LFDM/config/mug128.yaml"
+AE_RESTORE_FROM = "/content/drive/MyDrive/Pretrained/LFAE_MHAD.pth"
+# меняем ссылку на конфиги
+config_pth = "/content/CVPR23_LFDM/config/mug128.yaml"
 CKPT_DIR = os.path.join(root_dir, "demo"+postfix)
 os.makedirs(CKPT_DIR, exist_ok=True)
 print(root_dir)
@@ -130,7 +131,8 @@ def main():
                    "forward lunge (left foot forward)",
                    "squat"]
 
-    ref_img_path = "/workspace/code/CVPR23_LFDM/demo/mhad_examples/a11_s4_t1_000.png"
+    # меняем на ссылку на исходную картинку
+    ref_img_path = "/content/CVPR23_LFDM/demo/mhad_examples/a11_s4_t1_000.png"
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]
     ref_img_npy = cv2.resize(ref_img_npy, (336, 480), interpolation=cv2.INTER_AREA)

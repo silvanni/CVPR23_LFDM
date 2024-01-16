@@ -6,7 +6,7 @@ The pytorch implementation of our CVPR 2023 paper [Conditional Image-to-Video Ge
 
 Updates
 -----
-[Updated on 01/16/2023] Added jupyter notenook CVPR23_LFDM.ipynb for the demo launch
+[Updated on 01/16/2023] Added jupyter notebook CVPR23_LFDM.ipynb for the demo launch
 
 [Updated on 07/08/2023] Added multi-GPU training codes for MHAD dataset.
 

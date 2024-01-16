@@ -1,6 +1,6 @@
 # demo on MUG dataset
 import sys
-sys.path.append("/content/CVPR23_LFDM")  # change this to your code directory
+sys.path.append("/content/cvpr23-lfdm-for-img2vid")  # change this to your code directory
 import argparse
 
 import imageio
@@ -33,7 +33,7 @@ RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_MUG.pth"
 # downloaded the pretrained LFAE model and put its path here
 AE_RESTORE_FROM = "/content/drive/MyDrive/Pretrained/LFAE_MUG.pth"
 # меняем ссылку на конфиги
-config_path = "/content/CVPR23_LFDM/config/mug128.yaml"
+config_path = "/content/cvpr23-lfdm-for-img2vid/config/mug128.yaml"
 CKPT_DIR = os.path.join(root_dir, "demo"+postfix)
 os.makedirs(CKPT_DIR, exist_ok=True)
 print(root_dir)
@@ -110,7 +110,7 @@ def main():
                 'neutral', 'sadness', 'surprise']
 
     # меняем ссылку на ссылку на исходную картинку
-    ref_img_path = "/content/CVPR23_LFDM/demo/mug_examples/img_0000.jpg"
+    ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/img_0000.jpg"
     print("input image:", ref_img_path)
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]

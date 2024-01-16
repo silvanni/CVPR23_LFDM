@@ -1,6 +1,6 @@
 # demo on NATOPS dataset
 import sys
-sys.path.append("/content/CVPR23_LFDM") # меняем ссылку на путь к нашей папке
+sys.path.append("/content/cvpr23-lfdm-for-img2vid") # меняем ссылку на путь к нашей папке
 
 import argparse
 import imageio
@@ -37,7 +37,7 @@ RANDOM_SEED = 1234
 MEAN = (0.0, 0.0, 0.0)
 cond_scale = 1.
 # меняем ссылку на конфиги
-config_pth = "/content/CVPR23_LFDM/config/natops128.yaml"
+config_pth = "/content/cvpr23-lfdm-for-img2vid/config/natops128.yaml"
 # put your trained DM model here
 RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_NATOPS.pth"
 # pu your trained LFAE model here
@@ -145,7 +145,7 @@ def main():
     y_min, y_max, x_min, x_max = 10, 239, 30, 290
 
     # меняем на ссылку на исходную картинку
-    ref_img_path = "/content/CVPR23_LFDM/demo/natops_examples/g01s10p01-0000-0055.png"
+    ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/natops_examples/g01s10p01-0000-0055.png"
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]
     ref_img_npy = ref_img_npy[y_min:y_max, x_min:x_max, :]

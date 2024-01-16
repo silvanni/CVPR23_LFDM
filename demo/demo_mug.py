@@ -1,6 +1,6 @@
 # demo on MUG dataset
 import sys
-sys.path.append("/content/CVPR23_LFDM")  # change this to your code directory
+sys.path.append("/content/cvpr23-lfdm-for-img2vid")  # change this to your code directory
 import argparse
 
 import imageio

@@ -1,6 +1,6 @@
 # demo on NATOPS dataset
 import sys
-sys.path.append("/content/cvpr23-lfdm-for-img2vid") # меняем ссылку на путь к нашей папке
+sys.path.append("/content/CVPR23_LFDM") # меняем ссылку на путь к нашей папке
 
 import argparse
 import imageio

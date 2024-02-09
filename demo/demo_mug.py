@@ -106,8 +106,7 @@ def main():
 
     model.eval()
 
-    exp_list = ['anger', 'disgust', 'fear', 'happiness',
-                'neutral', 'sadness', 'surprise']
+    exp_list = ['neutral']
 
     # меняем ссылку на ссылку на исходную картинку
     ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/img_0000.jpg"

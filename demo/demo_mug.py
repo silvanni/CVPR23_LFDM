@@ -17,6 +17,7 @@ from DM.modules.video_flow_diffusion_model import FlowDiffusion
 from misc import resize
 import cv2
 import matplotlib.pyplot as plt
+import subprocess
 
 start = timeit.default_timer()
 # ссылка на папку, куда сохраняем результат
@@ -42,6 +43,13 @@ print("RESTORE_FROM:", RESTORE_FROM)
 print("AE_RESTORE_FROM:", AE_RESTORE_FROM)
 print("cond scale:", cond_scale)
 
+def get_length(filename):
+    result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
+                             "format=duration", "-of",
+                             "default=noprint_wrappers=1:nokey=1", filename],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT)
+    return float(result.stdout)
 
 def get_arguments():
     """Parse all the arguments provided from the CLI.
@@ -108,8 +116,12 @@ def main():
 
     exp_list = ['neutral']
 
-    # меняем ссылку на ссылку на исходную картинку
-    ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/img_0000.jpg"
+    # меняем ссылку на ссылку на исходное видео
+    ref_vid_path = '/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/SHA2_обработанное_видео179.mp4'
+    ref_img_path = '/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/img.jpg'
+    vidcap = cv2.VideoCapture(ref_vid_path)
+    _,image = vidcap.read()
+    cv2.imwrite(ref_img_path, image) 
     print("input image:", ref_img_path)
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]
@@ -122,6 +134,7 @@ def main():
 
     nf = 40
     cnt = 0
+    iter_vid = int(get_length(ref_vid_path) // 4) # для последующих итераций
     for ref_text in exp_list:
         model.set_sample_input(sample_img=ref_imgs, sample_text=[ref_text])
         model.sample_one_video(cond_scale=cond_scale)
@@ -134,12 +147,12 @@ def main():
             save_fake_grid = grid2fig(model.sample_vid_grid[0, :, frame_idx].permute((1, 2, 0)).data.cpu().numpy(),
                                       grid_size=32, img_size=msk_size)
             save_fake_conf = conf2fig(model.sample_vid_conf[0, :, frame_idx])
-            new_im = Image.new('RGB', (msk_size * 5, msk_size))
-            new_im.paste(Image.fromarray(save_src_img, 'RGB'), (0, 0))
-            new_im.paste(Image.fromarray(save_sample_out_img, 'RGB'), (msk_size * 1, 0))
-            new_im.paste(Image.fromarray(save_sample_warp_img, 'RGB'), (msk_size * 2, 0))
-            new_im.paste(Image.fromarray(save_fake_grid, 'RGB'), (msk_size * 3, 0))
-            new_im.paste(Image.fromarray(save_fake_conf, 'L'), (msk_size * 4, 0))
+            new_im = Image.new('RGB', (msk_size, msk_size))
+            # new_im.paste(Image.fromarray(save_src_img, 'RGB'), (0, 0))
+            new_im.paste(Image.fromarray(save_sample_out_img, 'RGB'), (0, 0))
+            # new_im.paste(Image.fromarray(save_sample_warp_img, 'RGB'), (msk_size * 2, 0))
+            # new_im.paste(Image.fromarray(save_fake_grid, 'RGB'), (msk_size * 3, 0))
+            # new_im.paste(Image.fromarray(save_fake_conf, 'L'), (msk_size * 4, 0))
             new_im_arr = np.array(new_im)
             new_im_list.append(new_im_arr)
         video_name = "%04d_%s_%s_%.2f.gif" % (cnt, ref_text, ref_img_name, cond_scale)

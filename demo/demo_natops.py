@@ -18,7 +18,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 start = timeit.default_timer()
-# меняем на ссылку на папку, куда сохраняем результат
+# path to the folder with the results
 root_dir = '/content/results'
 GPU = "5"
 postfix = "-j-of-lnc-upconv"
@@ -36,11 +36,11 @@ N_FRAMES = 40
 RANDOM_SEED = 1234
 MEAN = (0.0, 0.0, 0.0)
 cond_scale = 1.
-# меняем ссылку на конфиги
+# path to config file
 config_pth = "/content/cvpr23-lfdm-for-img2vid/config/natops128.yaml"
 # put your trained DM model here
 RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_NATOPS.pth"
-# pu your trained LFAE model here
+# put your trained LFAE model here
 AE_RESTORE_FROM = "/content/drive/MyDrive/Pretrained/LFAE_NATOPS.pth"
 CKPT_DIR = os.path.join(root_dir, "demo"+postfix)
 os.makedirs(CKPT_DIR, exist_ok=True)
@@ -144,7 +144,7 @@ def main():
 
     y_min, y_max, x_min, x_max = 10, 239, 30, 290
 
-    # меняем на ссылку на исходную картинку
+    # path to the input image
     ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/natops_examples/g01s10p01-0000-0055.png"
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]

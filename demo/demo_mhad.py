@@ -17,7 +17,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 start = timeit.default_timer()
-# меняем на ссылку на папку, куда сохраняем результат
+# path to the folder with the results
 root_dir = '/content/results'
 GPU = "1"
 postfix = "-j-sl-random-of-tr-rmm"
@@ -30,7 +30,7 @@ cond_scale = 1.
 RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_MHAD.pth"
 # downloaded the pretrained LFAE model and put its path here
 AE_RESTORE_FROM = "/content/drive/MyDrive/Pretrained/LFAE_MHAD.pth"
-# меняем ссылку на конфиги
+# path to config file
 config_pth = "/content/cvpr23-lfdm-for-img2vid/config/mug128.yaml"
 CKPT_DIR = os.path.join(root_dir, "demo"+postfix)
 os.makedirs(CKPT_DIR, exist_ok=True)
@@ -131,7 +131,7 @@ def main():
                    "forward lunge (left foot forward)",
                    "squat"]
 
-    # меняем на ссылку на исходную картинку
+    # path to the input image
     ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/mhad_examples/a11_s4_t1_000.png"
     ref_img_name = os.path.basename(ref_img_path)[:-4]
     ref_img_npy = imageio.v2.imread(ref_img_path)[:, :, :3]

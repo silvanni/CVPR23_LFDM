@@ -19,7 +19,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 start = timeit.default_timer()
-# ссылка на папку, куда сохраняем результат
+# path to folder with the results
 root_dir = '/content/results'
 GPU = "2"
 postfix = "-j-sl-random-of-tr-rmm"
@@ -32,7 +32,7 @@ cond_scale = 1.
 RESTORE_FROM = "/content/drive/MyDrive/Pretrained/DM_MUG.pth"
 # downloaded the pretrained LFAE model and put its path here
 AE_RESTORE_FROM = "/content/drive/MyDrive/Pretrained/LFAE_MUG.pth"
-# меняем ссылку на конфиги
+# path to config file
 config_path = "/content/cvpr23-lfdm-for-img2vid/config/mug128.yaml"
 CKPT_DIR = os.path.join(root_dir, "demo"+postfix)
 os.makedirs(CKPT_DIR, exist_ok=True)
@@ -109,7 +109,7 @@ def main():
     exp_list = ['anger', 'disgust', 'fear', 'happiness',
                 'neutral', 'sadness', 'surprise']
 
-    # меняем ссылку на ссылку на исходную картинку
+    # path to the input image
     ref_img_path = "/content/cvpr23-lfdm-for-img2vid/demo/mug_examples/img_0000.jpg"
     print("input image:", ref_img_path)
     ref_img_name = os.path.basename(ref_img_path)[:-4]
